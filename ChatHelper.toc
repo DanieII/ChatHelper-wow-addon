@@ -1,0 +1,5 @@
+## Interface: 30300
+## Title: ChatHelper
+## DefaultState: enabled
+
+ChatHelper.lua
