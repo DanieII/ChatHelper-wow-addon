@@ -42,12 +42,9 @@ UIConfig.resizeBtn:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber
 UIConfig.resizeBtn:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
 UIConfig.resizeBtn:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
 UIConfig.resizeBtn:SetScript("OnMouseDown", function(self, button)
-	self.isSizing = true
 	self:GetParent():StartSizing("BOTTOMRIGHT")
-	
 end)
 UIConfig.resizeBtn:SetScript("OnMouseUp", function(self, button)
-	self.isSizing = false
 	self:GetParent():StopMovingOrSizing()
 end)
 
@@ -74,8 +71,8 @@ local function SetPlaceholder()
 end
 
 SetPlaceholder()
-UIConfig.editBox:SetScript("OnEditFocusGained", function(self) self:SetText("") self:SetTextColor(1, 1, 1) end)
 
+UIConfig.editBox:SetScript("OnEditFocusGained", function(self) self:SetText("") self:SetTextColor(1, 1, 1) end)
 UIConfig.editBox:SetScript("OnEditFocusLost", function(self)
     if self:GetText() == "" then
         SetPlaceholder()
@@ -90,6 +87,9 @@ UIConfig.editBox:SetScript("OnTextChanged", function(self, userinput)
 			UIConfig.startBtn:Disable()
 			UIConfig.stopBtn:Disable()
 		end
+	else
+		UIConfig.startBtn:Disable()
+		UIConfig.stopBtn:Disable()
 	end
 end)
 
@@ -103,8 +103,6 @@ UIConfig.startBtn:SetSize(100,30)
 UIConfig.startBtn:SetText("Start Searching")
 local words
 local searching
-local stop
-
 UIConfig.startBtn:SetScript("OnClick", function(self)
 	searching = true
 	UIConfig.stopBtn:Enable()
@@ -135,7 +133,7 @@ UIConfig.stopBtn:Disable()
 UIConfig.stopBtn:SetPoint("CENTER", UIConfig, "CENTER", 0, -40)
 UIConfig.stopBtn:SetSize(100,30)
 UIConfig.stopBtn:SetText("Stop")
-UIConfig.stopBtn:SetScript("OnClick", function(self) searching = false UIConfig.startBtn:Enable() SetPlaceholder() UIConfig.editBox:EnableMouse(true) end)
+UIConfig.stopBtn:SetScript("OnClick", function(self) searching = false SetPlaceholder() end)
  
  
 function OpenMenu()
